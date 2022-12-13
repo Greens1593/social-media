@@ -1,6 +1,6 @@
 import React from 'react'
 import {GoogleOAuthProvider} from '@react-oauth/google'
-import { json, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import shareVideo from '../assets/share.mp4'
 import logo from '../assets/logowhite.png'
@@ -16,10 +16,10 @@ const Login = () => {
     
     localStorage.setItem('user', JSON.stringify(decode))
   
-    const { name, picture, aud } = decode;
+    const { name, picture, jti } = decode;
     
     const doc = {
-      _id: aud,
+      _id: jti,
       _type: 'user',
       userName: name,
       image: picture,
