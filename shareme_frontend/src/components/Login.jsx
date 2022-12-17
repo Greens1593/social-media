@@ -16,10 +16,10 @@ const Login = () => {
     
     localStorage.setItem('user', JSON.stringify(decode))
   
-    const { name, picture, jti } = decode;
+    const { name, picture, sub } = decode;
     
     const doc = {
-      _id: jti,
+      _id: sub,
       _type: 'user',
       userName: name,
       image: picture,
