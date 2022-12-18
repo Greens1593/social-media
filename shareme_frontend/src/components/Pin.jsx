@@ -17,7 +17,7 @@ const Pin = ({pin : {postedBy, image, _id, destination, save}}) => {
     const [postHovered, setPostHovered] = useState(false)
     const [savingPost, setSavingPost] = useState(false)
     const [alreadySaved, setAlreadySaved] = useState(false)
-    const [saveCount, setSaveCount] = useState(null)
+    const [saveCount, setSaveCount] = useState(0)
 
     const navigate = useNavigate()
     
@@ -27,8 +27,8 @@ const Pin = ({pin : {postedBy, image, _id, destination, save}}) => {
     useEffect(() => {
         if (!!(save?.filter((item) => item.postedBy._id === user.sub))?.length) {
             setAlreadySaved(true)
+            setSaveCount(save?.length)
         }
-        setSaveCount(save?.length)
     }, [])
       
     

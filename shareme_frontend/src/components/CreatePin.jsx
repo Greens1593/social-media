@@ -101,7 +101,7 @@ const CreatePin = ({ user }) => {
                 onChange={uploadImage}
                 className="w-0 h-0"
               />
-            </label>) : (<div className='relative h-full'>
+            </label>) : (<div className='relative h-full w-auto'>
                 <img
                   src={imageAsset?.url}
                   alt="uploaded-pic"
