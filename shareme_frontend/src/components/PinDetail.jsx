@@ -15,7 +15,7 @@ const PinDetail = ({ user }) => {
   const [pinDetails, setPinDetails] = useState(null)
   const [comment, setComment] = useState('')
   const [addingComment, setAddingComment] = useState(false)
-
+  
   const {pinId} = useParams()
 
   const fetchPinDetails = () => {
@@ -152,7 +152,7 @@ const PinDetail = ({ user }) => {
       </div>
     </div>
     {
-    pins?.length > 0 ? (<>
+     pins?.length > 0 ? (<>
       <h2 className='text-center font-bold text-2x mt-8 mb-4'>
       More like this
       </h2>
