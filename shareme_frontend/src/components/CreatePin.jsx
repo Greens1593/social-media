@@ -105,9 +105,9 @@ const CreatePin = ({ user }) => {
                 <img
                   src={imageAsset?.url}
                   alt="uploaded-pic"
-                  className='h-full w-full' /> 
+                  className='h-full w-full object-contain' /> 
                 <button
-                  className='absolute bottom-3 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out'
+                  className='absolute bottom-6 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out'
                   onClick={() => setImageAsset(null)}
                 >
                   <MdDelete/>
