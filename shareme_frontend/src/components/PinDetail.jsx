@@ -15,7 +15,7 @@ const PinDetail = ({ user }) => {
   const [pinDetails, setPinDetails] = useState(null)
   const [comment, setComment] = useState('')
   const [addingComment, setAddingComment] = useState(false)
-  
+
   const {pinId} = useParams()
 
   const fetchPinDetails = () => {
@@ -109,7 +109,7 @@ const PinDetail = ({ user }) => {
         </Link>
         <h2 className='mt-5 text-2xl'>Comments</h2>
         <div className='max-h-370 overflow-y-auto'>
-          {pinDetails?.comments?.map((comment, i) => (
+          {(!pinDetails.comments || pinDetails.comments.length[0]) ? <p className='mt-3'>No comments here</p> : pinDetails?.comments?.map((comment, i) => (
             <div
               className='flex gap-2 mt-5 items-center bg-white rounded-lg'
               key={i}
@@ -152,7 +152,7 @@ const PinDetail = ({ user }) => {
       </div>
     </div>
     {
-     pins?.length > 0 ? (<>
+    pins?.length > 0 ? (<>
       <h2 className='text-center font-bold text-2x mt-8 mb-4'>
       More like this
       </h2>

@@ -21,7 +21,7 @@ const Pin = ({pin : {postedBy, image, _id, destination, save}}) => {
 
     const navigate = useNavigate()
     
-
+    
     const user = fetchUser()
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const Pin = ({pin : {postedBy, image, _id, destination, save}}) => {
             setAlreadySaved(true)
             setSaveCount(save?.length)
         }
-    }, [])
+    }, [savingPost])
       
     
     const savePin = (id) => {
