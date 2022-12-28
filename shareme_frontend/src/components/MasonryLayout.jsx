@@ -11,7 +11,7 @@ const breakpointObj = {
   500: 1,
 }
 
-const MasonryLayout = ({pins}) => {
+const MasonryLayout = ({ pins, hideBackdrop }) => {
   return (
     <Masonry className='flex animate-slide-fwd' breakpointCols={breakpointObj}>
       {
@@ -20,6 +20,7 @@ const MasonryLayout = ({pins}) => {
             pin={pin}
             className="w-max"
             key={pin._id}
+            hideBackdrop={hideBackdrop}
           />)
       }
     </Masonry>

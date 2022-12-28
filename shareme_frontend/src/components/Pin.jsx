@@ -11,17 +11,22 @@ import { fetchUser } from '../utils/fetchUser'
 import { useEffect } from 'react'
 
 
-const Pin = ({pin : {postedBy, image, _id, destination, save}}) => {
+const Pin = ({pin : {postedBy, image, _id, destination, save, title}, hideBackdrop}) => {
 
 
     const [postHovered, setPostHovered] = useState(false)
     const [savingPost, setSavingPost] = useState(false)
     const [alreadySaved, setAlreadySaved] = useState(false)
     const [saveCount, setSaveCount] = useState(0)
+    const [bigImage, setBigImage] = useState(false)
 
     const navigate = useNavigate()
-    
-    
+
+    const openPinImage = () => {
+        setBigImage(true)
+        hideBackdrop()
+    }
+
     const user = fetchUser()
 
     useEffect(() => {
@@ -69,7 +74,7 @@ const Pin = ({pin : {postedBy, image, _id, destination, save}}) => {
           <div
             onMouseEnter={() => setPostHovered(true, destination)}
             onMouseLeave={() => setPostHovered(false)}
-            onClick={() => navigate(`/pin-detail/${_id}`)}
+            onClick={openPinImage}
             className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
             >
                 <img className='rounded-lg w-full' src={urlFor(image).width(250).url()} alt="user-post" />              
@@ -136,6 +141,10 @@ const Pin = ({pin : {postedBy, image, _id, destination, save}}) => {
                     </div>
                 )}
             </div>
+            <div className='bg-white p-2 border-1 rounded-2xl shadow-sm hover:shadow-lg'>
+            <Link to={`pin-detail/${_id}`} className='mt-2'>
+                <p className='font-semibold capitalize text-center mt-2'>{title}</p>
+            </Link>
             <Link to={`user-profile/${postedBy?._id}`} className='flex gap-2 mt-2 items-center'>
                 <img
                     className='w-8 h-8 rounded-full object-cover'
@@ -143,6 +152,15 @@ const Pin = ({pin : {postedBy, image, _id, destination, save}}) => {
                     alt="user-profile" />
                 <p className='font-semibold capitalize'>{postedBy?.userName}</p>
             </Link>
+            </div>
+            {bigImage && <img
+                className='w-full h-full'
+                style={{position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50 %, -50 %)"
+                    }}
+                src={urlFor(image).url()} alt="user-post" />}
     </div>
   )
 }

@@ -9,9 +9,11 @@ import {feedQuery, searchQuery} from '../utils/data'
 import MasonryLayout from './MasonryLayout'
 import Spinner from './Spinner' 
 
-const Feed = () => {
+const Feed = ({hideBackdrop}) => {
   const [loading, setLoading] = useState(false)
   const [pins, setPins] = useState(null)
+
+  console.log(hideBackdrop)
   
   const { categoryId } = useParams();
 
@@ -38,7 +40,7 @@ const Feed = () => {
     if (!pins?.length) return <h2>No pins avaliable</h2>
   
   return (
-    <div>{pins && <MasonryLayout pins={pins} />}</div>
+    <div>{pins && <MasonryLayout hideBackdrop={hideBackdrop} pins={pins} />}</div>
   )
 }
 
