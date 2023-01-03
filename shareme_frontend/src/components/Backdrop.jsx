@@ -1,13 +1,17 @@
 import React from 'react'
 
-const Backdrop = ({backdropIsHidden, hideBackdrop}) => {
+const Backdrop = ({setBackdropIsHidden}) => {
   return (
-    <div> {!backdropIsHidden &&
-      <div
-        className='z-10 fixed bg-opacity-50 bg-black top-0 bottom-0 right-0 left-0'
-        onClick={hideBackdrop}
-      >
-      </div>}
+    <div
+      className='z-10 absolute bg-opacity-50 bg-black'
+      style={{
+        top: "-96px",
+        bottom: "-126px",
+        left: "-13px",
+        right: "-20px"
+      }}
+      onClick={() => setBackdropIsHidden(true)}
+    >      
     </div>
   )
 }

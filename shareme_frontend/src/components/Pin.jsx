@@ -1,31 +1,27 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
-import {MdDownloadForOffline} from 'react-icons/md'
+import { MdDownloadForOffline } from 'react-icons/md'
+import {AiOutlineCloseCircle } from 'react-icons/ai'
 import {AiTwotoneDelete} from 'react-icons/ai'
 import { BsFillArrowUpRightCircleFill } from 'react-icons/bs'
 
 import { client, urlFor } from '../client'
 import { fetchUser } from '../utils/fetchUser'
 import { useEffect } from 'react'
+import Backdrop from './Backdrop'
 
 
-const Pin = ({pin : {postedBy, image, _id, destination, save, title}, hideBackdrop}) => {
+const Pin = ({pin : {postedBy, image, _id, destination, save, title}}) => {
 
 
     const [postHovered, setPostHovered] = useState(false)
     const [savingPost, setSavingPost] = useState(false)
     const [alreadySaved, setAlreadySaved] = useState(false)
     const [saveCount, setSaveCount] = useState(0)
-    const [bigImage, setBigImage] = useState(false)
-
-    const navigate = useNavigate()
-
-    const openPinImage = () => {
-        setBigImage(true)
-        hideBackdrop()
-    }
+    const [backdropIsHidden, setBackdropIsHidden] = useState(true)
+    
 
     const user = fetchUser()
 
@@ -74,7 +70,7 @@ const Pin = ({pin : {postedBy, image, _id, destination, save, title}, hideBackdr
           <div
             onMouseEnter={() => setPostHovered(true, destination)}
             onMouseLeave={() => setPostHovered(false)}
-            onClick={openPinImage}
+            onClick={() => setBackdropIsHidden(false)}
             className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
             >
                 <img className='rounded-lg w-full' src={urlFor(image).width(250).url()} alt="user-post" />              
@@ -153,14 +149,23 @@ const Pin = ({pin : {postedBy, image, _id, destination, save, title}, hideBackdr
                 <p className='font-semibold capitalize'>{postedBy?.userName}</p>
             </Link>
             </div>
-            {bigImage && <img
-                className='w-full h-full'
-                style={{position: "absolute",
+            {!backdropIsHidden && <div>
+                <div
+                    className='w-100% h-100% object-contain z-20'
+                        style={{position: "absolute",
                         top: "50%",
                         left: "50%",
-                        transform: "translate(-50 %, -50 %)"
-                    }}
-                src={urlFor(image).url()} alt="user-post" />}
+                        transform: "translate(-50%, -50%)",
+                    }}>
+                    <img src={urlFor(image).url()} alt="user-post" />
+                    <AiOutlineCloseCircle
+                        className="absolute top-2 right-2 bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none"
+                        onClick={() => setBackdropIsHidden(true)}
+                    />
+                </div>
+                <Backdrop setBackdropIsHidden={setBackdropIsHidden} />
+                </div>
+                }
     </div>
   )
 }

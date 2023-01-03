@@ -3,7 +3,7 @@ import { HiMenu } from 'react-icons/hi'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { Link, Route, Routes } from 'react-router-dom'
 
-import { Sidebar, UserProfile, Backdrop } from '../components/index'
+import { Sidebar, UserProfile } from '../components/index'
 import Pins from './Pins'
 import { userQuery } from '../utils/data'
 import { client } from '../client'
@@ -15,11 +15,6 @@ const Home = () => {
   
   const [toggleSidebar, setToggleSidebar] = useState(false)
   const [user, setUser] = useState(null)
-  const [backdropIsHidden, setBackdropIsHidden] = useState(false)
-
-  function hideBackdrop () {
-    backdropIsHidden ? setBackdropIsHidden(true) : setBackdropIsHidden(false)
-  }
 
   const scrollRef = useRef(null)
 
@@ -65,10 +60,9 @@ const Home = () => {
       <div className='pb-2 flex-1 h-screen overflow-y-scroll' ref={scrollRef}>
         <Routes>
           <Route path='/user-profile/:userId' element={<UserProfile />}/>
-          <Route path='/*' element={<Pins hideBackdrop={hideBackdrop} user={user && user} />}/>
+          <Route path='/*' element={<Pins user={user && user}/>}/>
         </Routes>
       </div>
-      <Backdrop backdropIsHidden={backdropIsHidden} hideBackdrop={hideBackdrop} />
     </div>
   )
 }
