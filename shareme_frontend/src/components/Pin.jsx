@@ -3,25 +3,25 @@ import { Link } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
 import { MdDownloadForOffline } from 'react-icons/md'
-import {AiOutlineCloseCircle } from 'react-icons/ai'
 import {AiTwotoneDelete} from 'react-icons/ai'
 import { BsFillArrowUpRightCircleFill } from 'react-icons/bs'
 
 import { client, urlFor } from '../client'
 import { fetchUser } from '../utils/fetchUser'
 import { useEffect } from 'react'
-import Backdrop from './Backdrop'
 
 
-const Pin = ({pin : {postedBy, image, _id, destination, save, title}}) => {
-
+const Pin = ({pin : {postedBy, image, _id, destination, save, title}, setBackdropIsHidden, setImage}) => {
 
     const [postHovered, setPostHovered] = useState(false)
     const [savingPost, setSavingPost] = useState(false)
     const [alreadySaved, setAlreadySaved] = useState(false)
     const [saveCount, setSaveCount] = useState(0)
-    const [backdropIsHidden, setBackdropIsHidden] = useState(true)
-    
+ 
+    const handleImg = () => {
+        setBackdropIsHidden(false)
+        setImage(image)
+    }
 
     const user = fetchUser()
 
@@ -70,7 +70,7 @@ const Pin = ({pin : {postedBy, image, _id, destination, save, title}}) => {
           <div
             onMouseEnter={() => setPostHovered(true, destination)}
             onMouseLeave={() => setPostHovered(false)}
-            onClick={() => setBackdropIsHidden(false)}
+            onClick={handleImg}    
             className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
             >
                 <img className='rounded-lg w-full' src={urlFor(image).width(250).url()} alt="user-post" />              
@@ -149,23 +149,6 @@ const Pin = ({pin : {postedBy, image, _id, destination, save, title}}) => {
                 <p className='font-semibold capitalize'>{postedBy?.userName}</p>
             </Link>
             </div>
-            {!backdropIsHidden && <div>
-                <div
-                    className='w-100% h-100% object-contain z-20'
-                        style={{position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                    }}>
-                    <img src={urlFor(image).url()} alt="user-post" />
-                    <AiOutlineCloseCircle
-                        className="absolute top-2 right-2 bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none"
-                        onClick={() => setBackdropIsHidden(true)}
-                    />
-                </div>
-                <Backdrop setBackdropIsHidden={setBackdropIsHidden} />
-                </div>
-                }
     </div>
   )
 }

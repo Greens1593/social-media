@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import {client} from '../client'
 
 import {feedQuery, searchQuery} from '../utils/data'
+import Backdrop from './Backdrop'
 
 import MasonryLayout from './MasonryLayout'
 import Spinner from './Spinner' 
@@ -12,7 +13,9 @@ import Spinner from './Spinner'
 const Feed = () => {
   const [loading, setLoading] = useState(false)
   const [pins, setPins] = useState(null)
-  
+  const [backdropIsHidden, setBackdropIsHidden] = useState(true)
+  const [image, setImage] = useState(null)
+
   const { categoryId } = useParams();
 
     useEffect(() => {
@@ -38,7 +41,10 @@ const Feed = () => {
     if (!pins?.length) return <h2>No pins avaliable</h2>
   
   return (
-    <div>{pins && <MasonryLayout pins={pins} />}</div>
+    <div >
+      {pins && <MasonryLayout pins={pins} setImage={setImage} setBackdropIsHidden={setBackdropIsHidden} />}
+      {!backdropIsHidden && <Backdrop image={image} setBackdropIsHidden={setBackdropIsHidden} />}
+    </div>
   )
 }
 
