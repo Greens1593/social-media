@@ -138,10 +138,10 @@ const Pin = ({pin : {postedBy, image, _id, destination, save, title}, setBackdro
                 )}
             </div>
             <div className='bg-white p-2 border-1 rounded-2xl shadow-sm hover:shadow-lg'>
-            <Link to={`pin-detail/${_id}`} className='mt-2'>
+            <Link to={`/pin-detail/${_id}`} className='mt-2'>
                 <p className='font-semibold capitalize text-center mt-2'>{title}</p>
             </Link>
-            <Link to={`user-profile/${postedBy?._id}`} className='flex gap-2 mt-2 items-center'>
+            <Link to={`/user-profile/${postedBy?._id}`} className='flex gap-2 mt-2 items-center'>
                 <img
                     className='w-8 h-8 rounded-full object-cover'
                     src={postedBy?.image}

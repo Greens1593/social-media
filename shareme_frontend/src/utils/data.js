@@ -161,6 +161,7 @@ export const searchQuery = (searchTerm) => {
           }
         },
             _id,
+            title,
             destination,
             postedBy->{
               _id,
