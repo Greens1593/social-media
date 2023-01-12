@@ -26,7 +26,7 @@ const Pin = ({pin : {postedBy, image, _id, destination, save, title}, setBackdro
     const user = fetchUser()
 
     useEffect(() => {
-        if (!!(save?.filter((item) => item.postedBy._id === user.sub))?.length) {
+        if (!!(save?.filter((item) => item.postedBy._id === user?.sub))?.length) {
             setAlreadySaved(true)
             setSaveCount(save?.length)
         }
@@ -42,7 +42,7 @@ const Pin = ({pin : {postedBy, image, _id, destination, save, title}, setBackdro
                 .setIfMissing({ save: [] })
                 .insert('after', 'save[-1]', [{
                     _key: uuidv4(),
-                    userId: user.sub,
+                    userId: user?.sub,
                     postedBy: {
                         _type: 'postedBy',
                         _ref: user.sub
@@ -121,7 +121,7 @@ const Pin = ({pin : {postedBy, image, _id, destination, save, title}, setBackdro
                                     {destination.length > 15 ? `${destination.slice(0, 15)}...` : destination.slice(8)}
                                 </a>
                             )}
-                            {postedBy?._id === user.sub && (
+                            {postedBy?._id === user?.sub && (
                                 <button
                                     type="button"
                                     className='bg-white p-2 opacity-70 hover:opacity-100 font-bold text-base text-dark rounded-3xl hover:shadow-md outlined-none'
