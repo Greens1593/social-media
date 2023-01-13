@@ -11,7 +11,6 @@ import Spinner from './Spinner'
 
 const PinDetail = ({ user }) => {
 
-  
   const [pins, setPins] = useState(null)
   const [pinDetails, setPinDetails] = useState(null)
   const [comment, setComment] = useState('')
@@ -132,7 +131,7 @@ const PinDetail = ({ user }) => {
           <Link to={`user-profile/${pinDetails.postedBy?._id}`}>
             <img
               className='w-10 h-10 rounded-full cursor-pointer'
-              src={pinDetails.postedBy?.image}
+              src={user?.image}
               alt="user-profile"
             />
           </Link>
