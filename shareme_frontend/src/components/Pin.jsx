@@ -70,6 +70,10 @@ const Pin = ({pin : {postedBy, image, _id, destination, save, title}, setBackdro
           <div
             onMouseEnter={() => setPostHovered(true, destination)}
             onMouseLeave={() => setPostHovered(false)}
+            onTouchStart={() => setPostHovered(true, destination)}   
+            onTouchEnd={() => setTimeout(() => {
+                setPostHovered(false)                
+            }, 1500)}    
             onClick={handleImg}    
             className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
             >
