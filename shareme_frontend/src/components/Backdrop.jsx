@@ -11,7 +11,7 @@ const Backdrop = ({ setBackdropIsHidden, image }) => {
       onClick={() => setBackdropIsHidden(true)}
     >      
       <div
-        className='absolute z-20 bottom-10'
+        className='absolute z-20'
         style={{ maxWidth: "90%", maxHeight: "90%" }}
         >
         <img
