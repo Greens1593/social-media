@@ -4,11 +4,15 @@ import MasonryLayout from './MasonryLayout'
 import { client } from '../client'
 import { feedQuery, searchQuery } from '../utils/data'
 import Spinner from './Spinner'
+import Backdrop from './Backdrop'
 
 const Search = ({ searchTerm }) => {
   
   const [pins, setPins] = useState(null)
   const [loading, setLoading] = useState(true)
+
+  const [backdropIsHidden, setBackdropIsHidden] = useState(true)
+  const [image, setImage] = useState(null)
 
   useEffect(() => {
     if (searchTerm) {
@@ -31,8 +35,9 @@ const Search = ({ searchTerm }) => {
 
   return (
     <div>
-      {loading && <Spinner message="Searching for pins" />}
-      {pins?.length !== 0 && <MasonryLayout pins={pins} />}
+      {loading && <Spinner message="Searching for pins" />} 
+      {pins?.length !== 0 && <MasonryLayout pins={pins} setImage={setImage} setBackdropIsHidden={setBackdropIsHidden} />}
+      {!backdropIsHidden && <Backdrop image={image} setBackdropIsHidden={setBackdropIsHidden} />}
       {pins?.length === 0 && searchTerm !== '' && !loading && 
         <div className='mt-10 text-center text-xl'>No pins found</div>
       }
