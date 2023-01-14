@@ -8,6 +8,8 @@ import { client, urlFor } from '../client'
 import MasonryLayout from './MasonryLayout'
 import {pinDetailMorePinQuery, pinDetailQuery} from '../utils/data'
 import Spinner from './Spinner'
+import Backdrop from './Backdrop'
+import { useRef } from 'react'
 
 const PinDetail = ({ user }) => {
 
@@ -15,6 +17,10 @@ const PinDetail = ({ user }) => {
   const [pinDetails, setPinDetails] = useState(null)
   const [comment, setComment] = useState('')
   const [addingComment, setAddingComment] = useState(false)
+  const [backdropIsHidden, setBackdropIsHidden] = useState(true)
+  const [image, setImage] = useState(null)
+
+  const pinDetailsElement = useRef(null)
 
   const {pinId} = useParams()
 
@@ -62,6 +68,7 @@ const PinDetail = ({ user }) => {
 
   useEffect(() => {
     fetchPinDetails()
+    pinDetailsElement?.current?.scrollIntoView({ behavior: "smooth", block: "start" })
   }, [pinId])
 
   if(!pinDetails) return <Spinner message='Loading pin...'/>
@@ -70,6 +77,7 @@ const PinDetail = ({ user }) => {
   return (
     <>
     <div
+      ref={pinDetailsElement}
       className='flex xl-flex-row flex-col m-auto bg-white'
       style={{maxWidth: '1500px', borderRadius: '32px'}}
     >
@@ -157,7 +165,8 @@ const PinDetail = ({ user }) => {
       <h2 className='text-center font-bold text-2x mt-8 mb-4'>
       More like this
       </h2>
-          <MasonryLayout pins={pins} />    
+         {pins && <MasonryLayout pins={pins} setImage={setImage} setBackdropIsHidden={setBackdropIsHidden} />}
+        {!backdropIsHidden && <Backdrop image={image} setBackdropIsHidden={setBackdropIsHidden} />}
     </>) : (<Spinner message="Loading more pins.."/>)
     }
     </>

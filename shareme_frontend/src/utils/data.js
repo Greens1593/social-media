@@ -135,6 +135,7 @@ export const pinDetailMorePinQuery = (pin) => {
       }
     },
     _id,
+    title,
     destination,
     postedBy->{
       _id,
