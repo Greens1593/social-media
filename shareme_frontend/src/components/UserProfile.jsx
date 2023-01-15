@@ -7,6 +7,7 @@ import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/da
 import { client } from '../client'
 import MasonryLayout from './MasonryLayout'
 import Spinner from './Spinner'
+import Backdrop from './Backdrop'
 
 const randomImage = 'https://source.unsplash.com/1600x900/?nature,photography,technology'
 const activeBtnStyles = 'bg-red-500 text-white font-bold p-2 rounded-full w-20 outline-none'
@@ -18,6 +19,8 @@ const UserProfile = () => {
   const [pins, setPins] = useState(null)
   const [text, setText] = useState('Created')
   const [activeBtn, setActiveBtn] = useState('created')
+  const [backdropIsHidden, setBackdropIsHidden] = useState(true)
+  const [image, setImage] = useState(null)
   const navigate = useNavigate()
   const {userId} = useParams()
 
@@ -53,6 +56,7 @@ const UserProfile = () => {
   }
 
   return (
+    <>
     <div className='relative pb-2 h-full justify-center items-center'>
       <div className='flex flex-col pb-5'>
         <div className='flex flex-col mb-7'>
@@ -102,9 +106,9 @@ const UserProfile = () => {
               Saved
             </button>
             </div>
-            {pins?.length ? (
+          {pins?.length ? (
               <div className='px-2'>
-                <MasonryLayout pins={pins}/>
+                <MasonryLayout pins={pins} setImage={setImage} setBackdropIsHidden={setBackdropIsHidden}/>
               </div>
             ) : (<div
                 className='flex justify-center font-bold items-center w-full text-xl mt-2'
@@ -113,7 +117,9 @@ const UserProfile = () => {
               </div>)}
         </div>
       </div>
-    </div>
+      </div>
+      {!backdropIsHidden && <Backdrop image={image} setBackdropIsHidden={setBackdropIsHidden} />}
+      </>
   )
 }
 
